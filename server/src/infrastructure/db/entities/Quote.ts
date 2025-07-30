@@ -33,7 +33,10 @@ const quoteSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
     }
-});
+},  {
+        timestamps: true // timestamp enables createdAt and updatedAt
+    }
+);
 
 const Quote = mongoose.model("Quote", quoteSchema);
 export default Quote;

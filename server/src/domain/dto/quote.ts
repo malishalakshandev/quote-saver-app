@@ -11,7 +11,7 @@ const createQuoteDTO = z.object({
     quote_name: z
         .string()
         .min(5, {message: "Quote must be at least 5 characters."})
-        .max(20, {message: "Quote must be at maximum 20 characters."}),
+        .max(200, {message: "Quote must be at maximum 80 characters."}),
     isPublic: z.boolean().default(false), // optional with default
 });
 
@@ -19,7 +19,7 @@ const updateQuoteDTO = z.object({
     quote_name: z
         .string()
         .min(5, {message: "Quote must be at least 5 characters."})
-        .max(20, {message: "Quote must be at maximum 20 characters."}),
+        .max(200, {message: "Quote must be at maximum 80 characters."}),
     isPublic: z.boolean().default(false), // optional with default
 });
 

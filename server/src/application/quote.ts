@@ -15,7 +15,8 @@ const getQuotesByUserId = async (req: Request, res: Response, next: NextFunction
     try {
 
         const { userId } = getAuth(req);
-        const quotes = await Quote.find({ userId });
+
+        const quotes = await Quote.find({ "user.userId": userId });
         res.status(200).json(quotes);
         
     } catch (error) {
@@ -74,7 +75,7 @@ const createQuote = async (req: Request, res: Response, next: NextFunction) => {
         const parsedDataresult = createQuoteDTO.safeParse(dataToValidate);
 
         if(!parsedDataresult.success){
-            throw new ValidationError("Server Validation Error");
+            throw new ValidationError("Server Validation Error 123");
         }
 
         await Quote.create({
@@ -138,7 +139,7 @@ const deleteQuoteById = async (req: Request, res: Response, next: NextFunction) 
 const getPublicQuotes = async (req: Request, res: Response, next: NextFunction) => {
     
     try {
-
+        
         const quotes = await Quote.find({ isPublic: true, isActive: true });
         res.status(200).json(quotes);
         

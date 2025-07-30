@@ -1,25 +1,28 @@
 import express from "express";
 import { adminDeleteQuote, adminGetQuotesByUserId, adminToggleQuoteStatus, adminUpdateQuote, createQuote, deleteQuoteById, getPublicQuotes, getQuoteById, getQuotesByUserId, updateQuoteById } from "../application/quote";
+import isAuthenticated from "./middleware/authentication-middleware";
 
 const quoteRouter = express.Router();
 
-/* ======= General User Routes (Auth Required) ======== */
-quoteRouter
-    .route("/")
-    .get(getQuotesByUserId) // get own quotes
-    .post(createQuote); // create own quotes
+   
 
-quoteRouter
-    .route("/:id")
-    .get(getQuoteById) // get single own quote by quote id
-    .put(updateQuoteById) // update own quote (quote_name and isPublic) by quote id
-    .delete(deleteQuoteById); // delete own quote by quote id
-
-    
+/* ======= Define static routes before dynamic routes like :id ======== */
 /* ======= Public Routes (Auth Not Required) ======== */
 quoteRouter
     .route("/public")
     .get(getPublicQuotes); // get quotes where isPublic === true and isActive === true
+
+/* ======= General User Routes (Auth Required) ======== */
+quoteRouter
+    .route("/")
+    .get(isAuthenticated, getQuotesByUserId) // get own quotes
+    .post(isAuthenticated, createQuote); // create own quotes
+
+quoteRouter
+    .route("/:id")
+    .get(isAuthenticated, getQuoteById) // get single own quote by quote id
+    .put(isAuthenticated, updateQuoteById) // update own quote (quote_name and isPublic) by quote id
+    .delete(isAuthenticated, deleteQuoteById); // delete own quote by quote id
 
 
 /* ======= Admin Routes (Admin Only / Auth Required) ======== */

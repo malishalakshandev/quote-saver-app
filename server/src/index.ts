@@ -3,7 +3,6 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "./infrastructure/db";
 
-// import todoRouter from "./api/todo";
 import globalErrorHandlingMiddleware from "./api/middleware/global-error-handling-middleware";
 import { clerkMiddleware } from "@clerk/express";
 import quoteRouter from "./api/quote";
@@ -18,7 +17,9 @@ app.use(cors({ origin: "http://localhost:5173" }));
 
 // app.use((req, res, next) => {
 //     console.log('req.body:', req.body);
+//     console.log('req.method:', req.method);
 //     console.log('req.url:', req.url);
+//     console.log('req.originalUrl:', req.originalUrl);
 //     console.log('req.query:', req.query);
 //     console.log('req.params:', req.params);
 //     console.log('req.headers:', req.headers);
